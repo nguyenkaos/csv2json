@@ -11,14 +11,22 @@ def csv2json(datafile, delimiters=[';','\t',','] ):
     :returns: a dict object
     """
     data = []
-    
-    with open(datafile, 'rb') as csvfile :
-        dialect = csv.Sniffer().sniff(csvfile.read(), delimiters=delimiters)
-        csvfile.seek(0)
-        reader = csv.reader(csvfile, dialect)
-        for line in reader:
-            if line:
-                data.append(line)
+    try:
+        with open(datafile, 'rb') as csvfile :
+            dialect = csv.Sniffer().sniff(csvfile.readline(), delimiters=delimiters)
+            csvfile.seek(0)
+            reader = csv.reader(csvfile, dialect)
+            for line in reader:
+                if line:
+                    data.append(line)
+    except:
+        with open(datafile, 'rb') as csvfile :
+            dialect = csv.Sniffer().sniff(csvfile.readline(), delimiters=delimiters)
+            csvfile.seek(0)
+            reader = csv.reader(csvfile, dialect)
+            for line in reader:
+                if line:
+                    data.append(line) 
     data = [dict(zip(data[0],row)) for row in data]
     data.pop(0) 
     return data
