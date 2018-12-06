@@ -13,7 +13,7 @@ def csv2json(datafile, delimiters=[';','\t',','] ):
     data = []
     
     with open(datafile, 'rb') as csvfile :
-        dialect = csv.Sniffer().sniff(csvfile.read(1024), delimiters=delimiters)
+        dialect = csv.Sniffer().sniff(csvfile.read(), delimiters=delimiters)
         csvfile.seek(0)
         reader = csv.reader(csvfile, dialect)
         for line in reader:
